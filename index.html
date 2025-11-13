@@ -13,11 +13,37 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --card-bg: rgba(0, 0, 0, 0.6);
+            --card-hover: rgba(255, 215, 0, 0.2);
+            --accent-color: #FFD700;
+            --secondary-accent: #FFA500;
+            --button-text: #000000;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --notification-bg: rgba(0, 0, 0, 0.8);
+        }
+
+        .light-theme {
+            --bg-color: #f5f5f5;
+            --text-color: #333333;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --card-hover: rgba(255, 215, 0, 0.3);
+            --accent-color: #FFD700;
+            --secondary-accent: #FFA500;
+            --button-text: #000000;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --notification-bg: rgba(255, 255, 255, 0.9);
+        }
+
         body {
             overflow-x: hidden;
-            color: white;
+            color: var(--text-color);
             position: relative;
             min-height: 100vh;
+            background-color: var(--bg-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         #background {
@@ -60,7 +86,7 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-            border: 3px solid white;
+            border: 3px solid var(--accent-color);
             animation: pulse 2s infinite;
             overflow: hidden;
         }
@@ -75,9 +101,15 @@
             font-size: 2.5rem;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(to right, #FFD700, #FFA500);
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .social-links {
@@ -86,14 +118,66 @@
         }
 
         .social-links a {
-            color: white;
+            color: var(--text-color);
             font-size: 1.5rem;
             transition: transform 0.3s, color 0.3s;
         }
 
         .social-links a:hover {
             transform: scale(1.2);
-            color: #FFD700;
+            color: var(--accent-color);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            transition: background 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle.dark::before {
+            transform: translateX(30px);
+        }
+
+        .theme-toggle i {
+            position: absolute;
+            font-size: 14px;
+            transition: opacity 0.3s;
+        }
+
+        .theme-toggle .fa-sun {
+            left: 8px;
+            color: #FFA500;
+        }
+
+        .theme-toggle .fa-moon {
+            right: 8px;
+            color: #4A4A4A;
+        }
+
+        .theme-toggle.dark .fa-sun {
+            opacity: 0;
+        }
+
+        .theme-toggle:not(.dark) .fa-moon {
+            opacity: 0;
         }
 
         .hero {
@@ -119,8 +203,8 @@
         .cta-button {
             display: inline-block;
             padding: 15px 40px;
-            background: linear-gradient(to right, #FFD700, #FFA500);
-            color: #000;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-accent));
+            color: var(--button-text);
             font-weight: bold;
             border-radius: 50px;
             text-decoration: none;
@@ -136,20 +220,21 @@
         }
 
         .token-info {
-            background: rgba(0, 0, 0, 0.6);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             margin: 40px 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             animation: fadeIn 1.5s ease-out;
+            border: 1px solid var(--border-color);
         }
 
         .token-info h2 {
             text-align: center;
             margin-bottom: 25px;
             font-size: 2rem;
-            color: #FFD700;
+            color: var(--accent-color);
         }
 
         .info-grid {
@@ -163,18 +248,20 @@
             padding: 20px;
             border-radius: 15px;
             text-align: center;
-            transition: transform 0.3s;
+            transition: transform 0.3s, background 0.3s;
             animation: fadeInUp 1s ease-out;
+            border: 1px solid var(--border-color);
         }
 
         .info-card:hover {
             transform: translateY(-5px);
+            background: var(--card-hover);
         }
 
         .info-card i {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #FFD700;
+            color: var(--accent-color);
         }
 
         .info-card h3 {
@@ -188,17 +275,18 @@
         }
 
         .address-container {
-            background: rgba(0, 0, 0, 0.7);
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 15px;
             margin: 30px 0;
             text-align: center;
             animation: fadeIn 1.5s ease-out;
+            border: 1px solid var(--border-color);
         }
 
         .address-container h3 {
             margin-bottom: 15px;
-            color: #FFD700;
+            color: var(--accent-color);
         }
 
         .address-box {
@@ -218,11 +306,12 @@
             word-break: break-all;
             flex-grow: 1;
             max-width: 600px;
+            border: 1px solid var(--border-color);
         }
 
         #copy-btn {
-            background: #FFD700;
-            color: #000;
+            background: var(--accent-color);
+            color: var(--button-text);
             border: none;
             padding: 12px 20px;
             border-radius: 10px;
@@ -232,7 +321,7 @@
         }
 
         #copy-btn:hover {
-            background: #FFA500;
+            background: var(--secondary-accent);
         }
 
         .links-grid {
@@ -243,35 +332,36 @@
         }
 
         .link-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             text-align: center;
             text-decoration: none;
-            color: white;
+            color: var(--text-color);
             transition: transform 0.3s, background 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 15px;
             animation: fadeInUp 1s ease-out;
+            border: 1px solid var(--border-color);
         }
 
         .link-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 215, 0, 0.2);
+            background: var(--card-hover);
         }
 
         .link-card i {
             font-size: 2.5rem;
-            color: #FFD700;
+            color: var(--accent-color);
         }
 
         footer {
             text-align: center;
             padding: 30px 0;
             margin-top: 50px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid var(--border-color);
             animation: fadeIn 1.5s ease-out;
         }
 
@@ -280,13 +370,14 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: #FFD700;
+            background: var(--notification-bg);
+            color: var(--accent-color);
             padding: 15px 30px;
             border-radius: 10px;
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 1000;
+            border: 1px solid var(--border-color);
         }
 
         .notification.show {
@@ -297,9 +388,9 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            background: radial-gradient(circle at 30% 30%, #FFD700, #B8860B);
+            background: radial-gradient(circle at 30% 30%, var(--accent-color), var(--secondary-accent));
             border-radius: 50%;
-            box-shadow: 0 0 10px gold;
+            box-shadow: 0 0 10px var(--accent-color);
             animation: float 5s infinite ease-in-out;
         }
 
@@ -365,10 +456,16 @@
             #contract-address {
                 max-width: 100%;
             }
+            
+            .header-controls {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
-<body>
+<body class="dark-theme">
     <canvas id="background"></canvas>
     
     <!-- Floating coin animations -->
@@ -386,9 +483,15 @@
                 </div>
                 <div class="logo-text">RICH GUYS</div>
             </div>
-            <div class="social-links">
-                <a href="https://x.com/richguys" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://t.me/richguys" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+            <div class="header-controls">
+                <div class="social-links">
+                    <a href="https://x.com/richguys" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://t.me/meme_richguys" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+                <div class="theme-toggle dark" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
             </div>
         </header>
         
@@ -427,23 +530,23 @@
         <div class="address-container">
             <h3>CONTRACT ADDRESS</h3>
             <div class="address-box">
-                <div id="contract-address">7i5KP5K3X7cF8hCg4aJ6jVtN9pLq2rE8sW1yA3bM4dF6gH7jK9lP0oQ2wE4rT6yU8i0O</div>
+                <div id="contract-address">#</div>
                 <button id="copy-btn">COPY</button>
             </div>
         </div>
         
         <div class="links-grid">
-            <a href="https://dexscreener.com/solana/richguys" target="_blank" class="link-card">
+            <a href="https://dexscreener.com/solana/#" target="_blank" class="link-card">
                 <i class="fas fa-chart-line"></i>
                 <h3>DEXSCREENER</h3>
                 <p>Track price and charts</p>
             </a>
-            <a href="https://solscan.io/token/richguys" target="_blank" class="link-card">
+            <a href="https://solscan.io/token/#" target="_blank" class="link-card">
                 <i class="fas fa-search"></i>
                 <h3>SOLSCAN</h3>
                 <p>View on blockchain explorer</p>
             </a>
-            <a href="https://pump.fun/richguys" target="_blank" class="link-card">
+            <a href="https://pump.fun/#" target="_blank" class="link-card">
                 <i class="fas fa-rocket"></i>
                 <h3>PUMP.FUN</h3>
                 <p>Trade on Pump.fun</p>
@@ -456,7 +559,7 @@
         </div>
         
         <footer>
-            <p>© 2023 Rich Guys Memecoin. All rights reserved. Not financial advice.</p>
+            <p>© 2025 Rich Guys Memecoin. All rights reserved. Not financial advice.</p>
         </footer>
     </div>
     
@@ -543,6 +646,26 @@
         
         initParticles();
         animateParticles();
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-theme');
+            themeToggle.classList.remove('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            themeToggle.classList.toggle('dark');
+            
+            // Save the theme preference
+            const theme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+        });
         
         // Copy address functionality
         const copyButton = document.getElementById('copy-btn');
